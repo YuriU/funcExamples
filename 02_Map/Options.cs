@@ -1,6 +1,6 @@
 using System;
 
-namespace _01_Options
+namespace _02_Map
 {
     // type Option t = None | Some t
     public struct Option<T>
@@ -21,9 +21,7 @@ namespace _01_Options
             => new Option<T>(some.Value);
 
         public R Match<R>(Func<R> None, Func<T, R> Some) 
-            => isSome 
-                ? Some(value) 
-                : None();
+            => isSome ? Some(value) : None();
     }
 
     public static partial class F
