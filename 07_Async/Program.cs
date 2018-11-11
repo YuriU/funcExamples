@@ -7,32 +7,24 @@ namespace _07_Async
     class Program
     {
         static void Main(string[] args)
+            => MainAsync(args).Wait();
+
+        public static async Task MainAsync(string[] args)
         {
-            var resFluent =
-            from s in GetString()
-            from n in Parse(s)
-            from m3 in FunctionalExtensions.Async(n * 3)
-            select m3.ToString();
-
-            Console.WriteLine("Fluent result: " + resFluent.Result);
-
-            var val = GetString()
+              var val = await GetString()
                         .Bind(Parse)
                         .Map(r => r * 3)
-                        .Map(s => s.ToString()).Result;
+                        .Map(s => s.ToString());
 
-            Console.WriteLine(val);
+            Console.WriteLine("Method sequence result: " + val);
 
+            var resFluent = await
+                from s in GetString()
+                from n in Parse(s)
+                from m3 in FunctionalExtensions.Async(n * 3)
+                select m3.ToString();
 
-
-            Result<int> res = Value(32); //Error("Value is not int");
-
-            var output = res.Match(
-                e => e.Message,
-                e => e.ToString()
-            );
-
-            Console.WriteLine(output);
+            Console.WriteLine("Fluent result: " + resFluent);
         }
 
         public static async Task<string> GetString()

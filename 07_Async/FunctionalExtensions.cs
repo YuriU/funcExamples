@@ -31,15 +31,12 @@ namespace _07_Async
                             Error:(l1) => (Result<RR>)l1,
                             Value:(r1) => Value(project(r, r1))));
 
-
-
        public static Task<T> Async<T>(T t)
                 => Task.FromResult(t);
 
        public static async Task<R> Map<T, R>(this Task<T> task, Func<T, R> f)
                 => f(await task);
 
-        
        public static async Task<R> Bind<T, R>(this Task<T> task, Func<T, Task<R>> f)
                 => await f(await task);
 
