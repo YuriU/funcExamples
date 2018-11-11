@@ -19,10 +19,10 @@ namespace _07_Async
             Console.WriteLine("Method sequence result: " + val);
 
             var resFluent = await
-                from s in GetString()
-                from n in Parse(s)
-                from m3 in FunctionalExtensions.Async(n * 3)
-                select m3.ToString();
+                        from s in GetString()
+                        from n in Parse(s)
+                        from m3 in FunctionalExtensions.Async(n * 3)
+                        select m3.ToString();
 
             Console.WriteLine("Fluent result: " + resFluent);
         }
