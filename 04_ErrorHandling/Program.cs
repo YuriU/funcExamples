@@ -39,6 +39,7 @@ namespace _04_ErrorHandling
             var res = input
             .Bind(ParseStringToInt)
             .Bind(GetSqrt)
+            .Map(v => v * 100)
             .Match(
                 l => l,
                 r => r.ToString());

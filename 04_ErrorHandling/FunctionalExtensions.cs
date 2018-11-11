@@ -17,6 +17,11 @@ namespace _04_ErrorHandling
                 () => (Option<R>)None, 
                 (t) => f(t));
 
+        public static Either<L, Res> Map<L, R, Res>(this Either<L, R> eithLR, Func<R, Res> f) 
+            => eithLR.Match(
+                l => (Either<L, Res>)Left(l), 
+                r => (Either<L, Res>)Right(f(r)));
+
         public static Either<L, Res> Bind<L, R, Res>(this Either<L, R> eithLR, Func<R, Either<L, Res>> f) 
             => eithLR.Match(
                 l => Left(l), 
