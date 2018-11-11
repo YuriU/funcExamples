@@ -2,6 +2,7 @@ using System;
 
 namespace _04_ErrorHandling
 {
+    // Either<L, R> = Left(L) | Right(R)
     public struct Either<L, R>
     {
         private readonly bool isRight;
@@ -33,6 +34,8 @@ namespace _04_ErrorHandling
         public static Eithers.Right<T> Right<T>(T value) => new Eithers.Right<T>(value);
     }
 
+    // Sorry, I know the namespace is not grammatically correct
+    // I just needed to tell it from Either class name
     namespace Eithers 
     {
         public struct Left<T>
