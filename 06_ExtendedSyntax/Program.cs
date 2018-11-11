@@ -12,17 +12,15 @@ namespace _06_ExtendedSyntax
             //EnumerableExample();
 
             Either<string, int> correct = Right(3);
-
             MapExample(correct);
 
             Either<string, int> error = Left("Bad value");
-
             MapExample(error);
 
 
-            BindExample(correct);
+            BindExample();
 
-            BindExample(Right(-100));
+            
         }
 
         public static void EnumerableExample()
@@ -49,22 +47,25 @@ namespace _06_ExtendedSyntax
              Console.WriteLine(output);
         }
 
-        public static void BindExample(Either<string, int> input)
+        public static void BindExample()
         {
+            var first = ReadConsole("Enter first number:");
+            var second = ReadConsole("Enter second number:");
 
             var result =
-            from a in input
-            from b in Parse("7")
-            from r in SafeSqrtE(a + b)
-            select r + a;
+            from firstStr in first
+            from firstNumber in Parse(firstStr)
+            from secondStr in second
+            from secondNumber in Parse(secondStr)
+            from r in SafeSqrtE(firstNumber + secondNumber)
+            select r;
 
             var output = result.Match(
                 Left:(l) => l,
                 Right:(r) => r.ToString()
             );
             
-
-             Console.WriteLine(output);
+             Console.WriteLine($"Result is: {output}");
         }
 
         public static Option<int> SafeSqrt(int number)
@@ -87,6 +88,21 @@ namespace _06_ExtendedSyntax
         public static Either<string, int> SafeSqrtE(int number)
         {
             return number < 0 ? (Either<string, int>)Left("Value is above zero") : Right((int)Math.Sqrt(number));
+        }
+
+        public static Either<string, string> ReadConsole(string label)
+        {
+            Console.WriteLine(label);
+
+            var line = Console.ReadLine();
+            if(string.IsNullOrWhiteSpace(line))
+            {
+                return Left("Empty result");
+            }
+            else
+            {
+                return Right(line);
+            }
         }
     }
 }
