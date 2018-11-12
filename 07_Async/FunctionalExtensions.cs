@@ -52,5 +52,26 @@ namespace _07_Async
             var r = await bind(t);
             return project(t, r);
         }
+        
+        public static async Task<Result<R>> Map<T, R>(this Task<Result<T>> task, Func<T, R> f)
+        {
+            var t = await task;
+            return t.Match(
+                Error: (l) => (Result<R>)l, 
+                Value: (r) => Value(f(r)));
+        }
+
+        public static async Task<Result<R>> Bind<T, R>(this Task<Result<T>> task, Func<T, Task<Result<R>>> f)
+        {
+            var t = await task;
+            var taskToReturn = t.Match(
+                Error: (l) => Task.FromResult((Result<R>)l),
+                Value: async (r) => (Result<R>)await f(r)
+            );
+
+            return await taskToReturn;
+        }
+                
+                
     }
 }
