@@ -15,3 +15,5 @@
 /.vs/funcExamples/v15/*.suo
 /_ReSharper.Caches
 /.vs
+/08_RealAppExample/bin
+/08_RealAppExample/obj
