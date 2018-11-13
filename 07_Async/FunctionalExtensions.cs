@@ -34,44 +34,8 @@ namespace _07_Async
        public static Task<T> Async<T>(T t)
                 => Task.FromResult(t);
 
-       public static async Task<R> Map<T, R>(this Task<T> task, Func<T, R> f)
-                => f(await task);
-
-       public static async Task<R> Bind<T, R>(this Task<T> task, Func<T, Task<R>> f)
-                => await f(await task);
-
-        public static Task<R> Select<T, R>(this Task<T> task, Func<T, R> f)
-            => task.Map(f);
-
-       public static Task<R> SelectMany<T, R>(this Task<T> task, Func<T, Task<R>> f)
-                => task.Bind(f);
-
-        public static async Task<RR> SelectMany<T, R, RR>(this Task<T> task, Func<T, Task<R>> bind, Func<T, R, RR> project)
-        {
-            var t = await task;
-            var r = await bind(t);
-            return project(t, r);
-        }
         
-        public static async Task<Result<R>> Map<T, R>(this Task<Result<T>> task, Func<T, R> f)
-        {
-            var t = await task;
-            return t.Match(
-                Error: (l) => (Result<R>)l, 
-                Value: (r) => Value(f(r)));
-        }
+        
 
-        public static async Task<Result<R>> Bind<T, R>(this Task<Result<T>> task, Func<T, Task<Result<R>>> f)
-        {
-            var t = await task;
-            var taskToReturn = t.Match(
-                Error: (l) => Task.FromResult((Result<R>)l),
-                Value: async (r) => (Result<R>)await f(r)
-            );
-
-            return await taskToReturn;
-        }
-                
-                
     }
 }
