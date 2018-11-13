@@ -12,3 +12,6 @@
 /06_ExtendedSyntax/obj
 /07_Async/bin
 /07_Async/obj
+/.vs/funcExamples/v15/*.suo
+/_ReSharper.Caches
+/.vs
