@@ -11,26 +11,45 @@ namespace _07_Async
 
         public static async Task MainAsync(string[] args)
         {
-              var val = await GetString()
-                        .Bind(ParseOrZero)
-                        .Map(r => r * 3)
-                        .Map(s => s.ToString());
+            //await TasksDemo();
 
-            Console.WriteLine("Method sequence result: " + val);
 
-            var resFluent = await
-                        from s in GetString()
-                        from n in ParseOrZero(s)
-                        from m3 in FunctionalExtensions.Async(n * 3)
-                        select m3.ToString();
-
-            Console.WriteLine("Fluent result: " + resFluent);
-
+            await AsyncResultDemo();
 
             //var res = await 
             //            from firstStr in ReadConsoleAsync("Enter first number:")
             //            from secondStr in ReadConsoleAsync("Enter second number:")
             //            //from firstInt in Parse(firstStr)
+        }
+
+        private static async Task AsyncResultDemo()
+        {
+            var res = await ReadConsoleAsync("Please enter the number")
+                            .Bind(Parse)
+                            .Map(x => x * x);
+
+            var toPrint = res.Match(Error: e => e.Message,
+                                    Value: e => e.ToString());
+
+            Console.WriteLine(toPrint);
+        }
+
+        private static async Task TasksDemo()
+        {
+            var val = await GetString()
+                .Bind(ParseOrZero)
+                .Map(r => r * 3)
+                .Map(s => s.ToString());
+
+            Console.WriteLine("Method sequence result: " + val);
+
+            var resFluent = await
+                from s in GetString()
+                from n in ParseOrZero(s)
+                from m3 in FunctionalExtensions.Async(n * 3)
+                select m3.ToString();
+
+            Console.WriteLine("Fluent result: " + resFluent);
         }
 
         public static async Task<string> GetString()
@@ -48,13 +67,19 @@ namespace _07_Async
             return val;
         }
 
-        public static async Task<int> Parse(string str)
+        public static async Task<Result<int>> Parse(string str)
         {
             await Task.Delay(1000);
             
             int val = 0;
-            int.TryParse(str, out val);
-            return val;
+            if (int.TryParse(str, out val))
+            {
+                return Value(val);
+            }
+            else
+            {
+                return Error("String cannot be parsed to int");
+            }
         }
 
         public static async Task<Result<string>> ReadConsoleAsync(string label)
