@@ -36,8 +36,6 @@ namespace _07_Async
         public static Results.Value<T> Value<T>(T value) => new Results.Value<T>(value);
     }
 
-    // Sorry, I know the namespace is not grammatically correct
-    // I just needed to tell it from Either class name
     namespace Results 
     {
         public struct Error
