@@ -92,6 +92,7 @@ namespace _05_MonadsLaws
 
         public static Option<double> multiply(double x, double y)
                 => (Option<double>)Some(x * y);
+
         static Option<double> MultiplicationWithBind(string strX, string strY)
                 => Parse(strX)
                     .Bind(x => Parse(strY)

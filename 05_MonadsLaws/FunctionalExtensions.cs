@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using static _05_MonadsLaws.F;
 
 namespace _05_MonadsLaws

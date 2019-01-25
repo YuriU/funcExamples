@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using static _03_Bind.F;
 
 namespace _03_Bind

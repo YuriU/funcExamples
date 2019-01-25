@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using static _04_ErrorHandling.F;
 
 namespace _04_ErrorHandling

@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using static _06_ExtendedSyntax.F;
 
 namespace _06_ExtendedSyntax
@@ -34,8 +32,10 @@ namespace _06_ExtendedSyntax
             => eithLR.Match(
                 l => Left(l), 
                 r => f(r));
+
         public static Either<L, Res> Select<L, R, Res>(this Either<L, R> eithLR, Func<R, Res> f) 
             => eithLR.Map(f);
+
        public static Either<L, Res> SelectMany<L, R, Res>(this Either<L, R> eithLR, Func<R, Either<L, Res>> f) 
             => eithLR.Bind(f);
 
