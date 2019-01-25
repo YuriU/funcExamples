@@ -26,6 +26,16 @@ namespace _07_Async
                 PrintResult(result);
             }
 
+            private static async Task ExtendedSyntaxDemo1()
+            {
+                var result = await
+                    from str in ReadConsoleAsync("[Extended:] Please enter the number")
+                    from number in Parse(str)
+                    select number * number;
+
+                PrintResult(result);
+            }
+
             private static async Task ExtendedSyntaxDemo2()
             {
                 var result = await from numStr1 in ReadConsoleAsync("[Extended:] Please enter first number")
@@ -33,16 +43,6 @@ namespace _07_Async
                                  from numStr2 in ReadConsoleAsync("[Extended:] Please enter secont number")
                                  from num2 in Parse(numStr2)
                                  select num1 * num2;
-
-                PrintResult(result);
-            }
-
-            private static async Task ExtendedSyntaxDemo1()
-            {
-                var result = await 
-                                from str in ReadConsoleAsync("[Extended:] Please enter the number")
-                                from number in Parse(str)
-                                select number * number;
 
                 PrintResult(result);
             }

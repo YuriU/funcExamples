@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using _08_RealAppExample.Contracts;
 using static _08_RealAppExample.F;
 
