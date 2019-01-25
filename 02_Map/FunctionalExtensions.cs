@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using static _02_Map.F;
 
 namespace _02_Map
